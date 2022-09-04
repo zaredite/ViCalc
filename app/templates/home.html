@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<div class="container" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col">
+            <div class="card h-100">
+                {% load static %}
+                <img src="{% static 'virus.png' %}" class="card-img-top p-2">
+                <div class="card-body text-center">
+                  <h3 class="card-title" style="font-weight: bolder;">LEARN</h3>
+                  <hr>
+                  <p class="card-text" style="font-weight: 500;">Learn about the COVID-19 Virus, helpful videos and presentations</p>
+                  <a href="{% url 'covid_info' %}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="{% static 'symptom.png' %}" class="card-img-top p-2">
+                <div class="card-body text-center">
+                    {% if cert == 1 %}
+                  <h3 class="card-title" style="font-weight: bolder;">YOU HAVE PASSED THE TEST 📑</h3>
+                    {% else %}
+                  <h3 class="card-title" style="font-weight: bolder;">TAKE THE TEST</h3>
+                    {% endif %}
+                  <hr>
+                  <p class="card-text" style="font-weight: 500;">Ace the TEST to get your Certificate!</p>
+                  <a href="{% url 'covid_quiz' %}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100">
+                <img src="{% static 'map.png' %}" class="card-img-top p-2">
+                <div class="card-body text-center">
+                  <h3 class="card-title" style="font-weight: bolder;">COVID MAP</h3>
+                  <hr>
+                  <p class="card-text" style="font-weight: 500;">Check daily COVID numbers in your country's cities</p>
+                  <a href="{% url 'map' %}" class="stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+
+<div class="container" style="margin-top: 20px;">
+    <h1 class="text-center">Welcome to ViCalc. Please LOGIN or REGISTER to continue.</h1>
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+        <label for="username" class="form-label" style="font-weight: bold;">USERNAME</label>
+        <input type="text" class="form-control" name="username">
+        </div>
+        <div class="mb-3">
+        <label for="password" class="form-label" style="font-weight: bold;">PASSWORD</label>
+        <input type="password" class="form-control" name="password">
+        </div>
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        <button type="submit" class="btn btn-primary">SUBMIT</button>
+        <label class="form-check-label">Don't have an account? <a class="link-dark" href="{% url 'register' %}" style="font-weight: bold">REGISTER</a></label>
+    </form>
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="container" style="margin-top: 20px;">
+    <div>
+        <div class="card h-100" id="sc">
+            <div class="card-body text-center">
+            <h3 class="card-title" style="font-weight: bolder;">SYMPTOMS</h3>
+            <hr>
+                <div class="row row-cols-4">
+                    {% for symptom in symptoms %}
+                    <div class="col mb-2">
+                        <div class="card h-100">
+                            <img src="{{ symptom.image.url }}" class="card-img-top p-2">
+                            <div class="card-body text-center">
+                              <h3 class="card-title" style="font-weight: bolder;">{{ symptom.name }}</h3>
+                              <hr>
+                              <p class="card-text" style="font-weight: 500;">{{ symptom.type }} Symptom</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

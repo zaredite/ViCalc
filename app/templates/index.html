@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViCalc</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        nav, .navbar-brand{
+            font-size: 1.5em;
+        }
+        .bg-secondary{
+            background-color: transparent !important;
+        }
+        body{
+            background: rgb(48,116,112);
+            background: linear-gradient(180deg, rgba(48,116,112,1) 0%, rgba(218,255,230,1) 20%, rgba(255,255,255,1) 100%);
+            background-attachment: fixed;
+        }
+        .btn-primary{
+            background-color: rgba(48,116,112,0.9) !important;
+            font-weight: bold !important;
+            border-color: black !important;
+            --bs-btn-focus-shadow-rgb: 48,116,112;
+        }
+        .btn-primary:active{
+            background-color: rgba(218,255,230,1) !important;
+            color: black !important;
+            border-color: rgba(48,116,112,0.9) !important;
+        }
+        .btn-primary:hover{
+            background-color: rgba(48,116,112,1) !important;
+            color: black !important;
+            border-color: black !important;
+        }
+        .btn-primary:focus{
+            background-color: rgba(218,255,230,1) !important;
+            color: black !important;
+            border-color: rgba(48,116,112,1) !important;
+        }
+        .card{
+            background-color: rgba(48,116,112,0.9);
+            color: white;
+        }
+        .card:hover{
+            opacity:0.9;
+            outline: 5px solid #a4dcbf;
+        }
+        /* .s0:hover{
+            outline: 2px ridge white;
+        } */
+        .btn-check:checked+.btn{
+            background-color: #a4dcbf !important;
+            color: black !important;
+        }
+        #sc:hover{
+            opacity: 1.0;
+            outline: none;
+        }
+        .list-group-item{
+            background-color: transparent !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg bg-secondary text-uppercase">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}"><img class="img-fluid" width="350px" src="{% static 'logo2.png' %}"></a>
+                <button class="navbar-toggler text-uppercase font-weight-bold bg-secondary text-white rounded" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                {% if user.is_authenticated %}
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" style="font-weight: bold;">Hello, {{request.user.username}}!</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'logout' %}">LOGOUT</a></li>
+                    </ul>
+                </div>
+                {% else %}
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" style="font-weight: bold;" href="{% url 'home' %}">Login</a></li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="{% url 'register' %}">Register</a></li>
+                    </ul>
+                </div>
+                {% endif %}
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
+        $(window).on('load',function(){
+        $('#staticBackdrop').modal('show');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<div class="container" style="margin-top: 20px;">
+    <div>
+        {% if points >= 0 and points <= 4 %}
+        <div class="card h-100" id="sc">
+          <div class="card-body text-center">
+          <h3 class="card-title" style="font-weight: bolder;">You got {{ points }} points! Study more and try again!</h3>
+          <hr>
+        </div>
+        <a class="btn btn-primary w-100 fs-4 mt-2 mb-5" href="{% url 'covid_quiz' %}">GO BACK</a>
+        {% elif points == 5 %}
+        <div class="card h-100" id="sc">
+          <div class="card-body text-center">
+          <h3 class="card-title" style="font-weight: bolder;">You got {{ points }} points! Congratulations!</h3>
+          <h1 class="text-center">You got the Certificate!</h1>
+          <h1 class="text-center"> To show you have gotten this certificate, <br />📑 This will show on the TEST.</h1>
+          <hr>
+        </div>
+        <a class="btn btn-primary w-100 fs-4 mt-2 mb-5" href="{% url 'home' %}">GO HOMEPAGE</a>
+        {% endif %}
+
+      {% if hide == False %}
+
+        <h1 class="text-center">THE TEST</h1>
+      <form method="POST" action="{% url 'covid_quiz' %}">
+        {% csrf_token %}
+        <div class="card h-100" id="sc">
+            <h3 class="card-title text-center mt-2" style="font-weight: bolder;">Q1. With which acute respiratory syndrome is COVID-19 associated with?</h3>
+            <div class="list-group">
+                <label class="list-group-item fs-4" style="color:white">
+                  <input class="form-check-input me-1" name="q1" type="radio" value="1" required>
+                  SARS-CoV-2
+                </label>
+                <label class="list-group-item fs-4" style="color:white">
+                  <input class="form-check-input me-1" name="q1" type="radio" value="2" required>
+                  HIV
+                </label>
+                <label class="list-group-item fs-4" style="color:white">
+                  <input class="form-check-input me-1" name="q1" type="radio" value="3" required>
+                  Flu
+                </label>
+                <label class="list-group-item fs-4" style="color:white">
+                  <input class="form-check-input me-1" name="q1" type="radio" value="4" required>
+                  Common Cold
+                </label>
+            </div>
+        </div>
+        <div class="card h-100 mt-2" id="sc">
+          <h3 class="card-title text-center mt-2" style="font-weight: bolder;">Q2. Which one of these is a main symptom of COVID-19?</h3>
+          <div class="list-group">
+              <label class="list-group-item fs-4" style="color:white">
+                <input class="form-check-input me-1" name="q2" type="radio" value="1" required>
+                Headache
+              </label>
+              <label class="list-group-item fs-4" style="color:white">
+                <input class="form-check-input me-1" name="q2" type="radio" value="2" required>
+                Sore throat
+              </label>
+              <label class="list-group-item fs-4" style="color:white">
+                <input class="form-check-input me-1" name="q2" type="radio" value="3" required>
+                Loss of taste or smell
+              </label>
+              <label class="list-group-item fs-4" style="color:white">
+                <input class="form-check-input me-1" name="q2" type="radio" value="4" required>
+                Runny nose
+              </label>
+          </div>
+        </div>
+        <div class="card h-100 mt-2" id="sc">
+            <h3 class="card-title text-center mt-2" style="font-weight: bolder;">Q3. Which one of these vaccines uses purified parts of the pathogen?</h3>
+            <div class="list-group">
+                <label class="list-group-item fs-4" style="color:white">
+                  <input class="form-check-input me-1" name="q3"  type="radio" value="1" required>
+                  Subunit
+                </label>
+                <label class="list-group-item fs-4" style="color:white">
+                  <input class="form-check-input me-1" name="q3"  type="radio" value="2" required>
+                  Inactivated virus
+                </label>
+                <label class="list-group-item fs-4" style="color:white">
+                  <input class="form-check-input me-1" name="q3"  type="radio" value="3" required>
+                  Adenovirus vector
+                </label>
+                <label class="list-group-item fs-4" style="color:white">
+                  <input class="form-check-input me-1" name="q3"  type="radio" value="4" required>
+                  mRNA
+                </label>
+            </div>
+        </div>
+        <div class="card h-100 mt-2" id="sc">
+              <h3 class="card-title text-center mt-2" style="font-weight: bolder;">Q4. Which respiratory mask has almost 100% protection against airborne pathogens?</h3>
+              <div class="list-group">
+                  <label class="list-group-item fs-4" style="color:white">
+                    <input class="form-check-input me-1" name="q4"  type="radio" value="1" required>
+                    Cloth Face
+                  </label>
+                  <label class="list-group-item fs-4" style="color:white">
+                    <input class="form-check-input me-1" name="q4"  type="radio" value="2" required>
+                    N95/KN95/FFP2
+                  </label>
+                  <label class="list-group-item fs-4" style="color:white">
+                    <input class="form-check-input me-1" name="q4"  type="radio" value="3" required>
+                    N99/KN99/FFP3
+                  </label>
+                  <label class="list-group-item fs-4" style="color:white">
+                    <input class="form-check-input me-1" name="q4" type="radio" value="4" required>
+                    Surgical
+                  </label>
+              </div>
+        </div>
+        <div class="card h-100 mt-2" id="sc">
+                <h3 class="card-title text-center mt-2" style="font-weight: bolder;">Q5. Which one of these is the best way to be protected from COVID-19?</h3>
+                <div class="list-group">
+                    <label class="list-group-item fs-4" style="color:white">
+                      <input class="form-check-input me-1" name="q5" type="radio" value="1" required>
+                      Masks
+                    </label>
+                    <label class="list-group-item fs-4" style="color:white">
+                      <input class="form-check-input me-1" name="q5" type="radio" value="2" required>
+                      Vaccines
+                    </label>
+                    <label class="list-group-item fs-4" style="color:white">
+                      <input class="form-check-input me-1" name="q5" type="radio" value="3" required>
+                      Social Distancing
+                    </label>
+                    <label class="list-group-item fs-4" style="color:white">
+                      <input class="form-check-input me-1" name="q5" type="radio" value="4" required>
+                      All of the Above
+                    </label>
+                </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary w-100 fs-4 mt-2 mb-5" name="submit">SUBMIT</button>
+      </form>
+
+      {% endif %}
+    </div>
+</div>
+
+{% endblock %}
